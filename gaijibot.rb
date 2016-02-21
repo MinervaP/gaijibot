@@ -37,7 +37,7 @@ class GaijiBot
   end
 
   def post_public_tweet(tweet)
-    post_slack(tweet.uri.to_s)
+    post_slack(tweet.uri)
   end
 
   def post_protected_tweet(tweet)
@@ -45,13 +45,13 @@ class GaijiBot
       text: tweet.full_text,
       author_name: tweet.user.name,
       author_subname:  "@#{tweet.user.screen_name}",
-      author_icon: tweet.user.profile_image_uri.to_s,
-      author_link: tweet.uri.to_s,
+      author_icon: tweet.user.profile_image_uri,
+      author_link: tweet.uri,
     }]
     tweet.media.each_with_index do |m, i|
       attachments[i] ||= {}
-      attachments[i].merge!({ fallback: tweet.uri.to_s, image_url: m.media_uri.to_s })
+      attachments[i].merge!({ fallback: tweet.uri, image_url: m.media_uri})
     end
-    post_slack(tweet.uri.to_s, { attachments: attachments.to_json })
+    post_slack(tweet.uri, { attachments: attachments.to_json })
   end
 end
