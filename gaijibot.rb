@@ -13,7 +13,7 @@ class GaijiBot
   end
 
   def asperger(targets)
-    @client.user(with: "user") do |tweet|
+    @client.user do |tweet|
       next unless tweet.kind_of?(Twitter::Tweet)
       next if tweet.retweet?
       if targets.include?(tweet.user.screen_name)
