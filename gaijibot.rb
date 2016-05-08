@@ -26,6 +26,8 @@ class GaijiBot
     end
   end
 
+  private
+
   def post_slack(text, options={})
     Net::HTTP.post_form(URI.parse("https://slack.com/api/chat.postMessage"), {
       token: @conf["slack_token"],
